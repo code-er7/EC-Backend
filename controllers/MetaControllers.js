@@ -1,19 +1,7 @@
-// categoryController.js
 
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
-
-
-export const createCategory = async function (req, res) {
-  try {
-    const { name } = req.body;
-    const category = await prisma.category.create({ data: { name } });
-    return res.status(201).json(category);
-  } catch (error) {
-    return res.status(500).json({ error: "Could not create category" });
-  }
-}
 
 
 

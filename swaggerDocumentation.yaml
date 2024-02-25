@@ -1,0 +1,199 @@
+openapi: 3.0.0
+info:
+  title: EC-Backend API
+  description: Documentation for the EC-Backend API.
+  version: 1.0.0
+servers:
+  - url: http://localhost:5000
+paths:
+  /api/meta/createproducts:
+    post:
+      summary: Add products to the database.
+      description: |
+        Before running any API, please execute this endpoint to populate the database with sample products.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                price:
+                  type: number
+                availability:
+                  type: integer
+                category_name:
+                  type: string
+              required:
+                - name
+                - description
+                - price
+                - availability
+                - category_name
+      responses:
+        '201':
+          description: Products added to the database successfully.
+        '500':
+          description: Internal server error.
+  /api/user/register:
+    post:
+      summary: Register a new user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - name
+                - email
+                - password
+      responses:
+        '201':
+          description: User registered successfully.
+        '500':
+          description: Internal server error.
+  /api/user/login:
+    post:
+      summary: Authenticate a user and generate a JWT token.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '200':
+          description: User authenticated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        '401':
+          description: Unauthorized - Invalid credentials.
+  /api/products/categories:
+    get:
+      summary: Retrieve a list of categories.
+      responses:
+        '200':
+          description: List of categories retrieved successfully.
+  /api/products/categories/{category_id}/products:
+    get:
+      summary: Retrieve products based on category ID.
+      parameters:
+        - name: category_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Products retrieved successfully.
+  /api/products/product/{product_id}:
+    get:
+      summary: Retrieve detailed information about a product by its ID.
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Product details retrieved successfully.
+  /api/cart:
+    get:
+      summary: View the current user's cart.
+      responses:
+        '200':
+          description: Cart details retrieved successfully.
+  /api/cart/add/{product_id}:
+    post:
+      summary: Add a product to the current user's cart.
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Product added to cart successfully.
+  /api/cart/update:
+    patch:
+      summary: Update the quantity of a product in the current user's cart.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: integer
+                quantity:
+                  type: integer
+              required:
+                - productId
+                - quantity
+      responses:
+        '200':
+          description: Cart item quantity updated successfully.
+  /api/cart/remove/{productId}:
+    delete:
+      summary: Remove a product from the current user's cart.
+      parameters:
+        - name: productId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Product removed from cart successfully.
+  /api/order/place:
+    put:
+      summary: Place an order with products from the user's cart.
+      responses:
+        '200':
+          description: Order placed successfully.
+  /api/order/history:
+    get:
+      summary: Retrieve the order history for the current user.
+      responses:
+        '200':
+          description: Order history retrieved successfully.
+  /api/order/{order_id}:
+    get:
+      summary: Retrieve detailed information about a specific order by its ID.
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Order details retrieved successfully.

@@ -8,6 +8,6 @@ const router = express.Router();
 router.get("/" , protect , viewCart);
 router.post("/add/:productid", protect, addToCart);
 router.patch("/update", protect, updateCartItemQuantity);
-router.delete("/remove", protect, removeCartItem);
+router.delete("/remove/:productId", protect, removeCartItem);
 
 export default router;

@@ -4,7 +4,6 @@ const prisma = new PrismaClient();
 // Controller function to view the current user's cart
 export const viewCart = async (req, res) => {
   try {
-    // Extract current user's ID from request object
     const userId = req.user.id;
 
     // Find the user's cart along with its associated cart items and products
@@ -25,7 +24,7 @@ export const viewCart = async (req, res) => {
     // Return the user's cart
     return res.status(200).json(userCart);
   } catch (error) {
-    // Handle errors
+    
     console.error("Error viewing user cart:", error);
     return res.status(500).json({ error: "Could not view user cart" });
   }
@@ -35,10 +34,8 @@ export const viewCart = async (req, res) => {
 
 export const addToCart = async (req, res) => {
   try {
-    // Extract product ID from request params
+  
     const productId = parseInt(req.params.productid);
-
-    // Extract current user's ID from request object
     const userId = req.user.id;
 
     // Check if the product exists
@@ -81,14 +78,14 @@ export const addToCart = async (req, res) => {
       // If the product is not in the cart, add it as a new cart item
       await prisma.cartItem.create({
         data: {
-          cart: { connect: { id: userCart.id } }, // Associate the cart item with the cart
-          product: { connect: { id: productId } }, // Associate the cart item with the product
-          quantity: 1, // Set quantity to 1
+          cart: { connect: { id: userCart.id } }, 
+          product: { connect: { id: productId } }, 
+          quantity: 1, 
         },
       });
     }
 
-    // Return success message
+   
     return res
       .status(200)
       .json({ message: "Product added to cart successfully" });
@@ -101,10 +98,9 @@ export const addToCart = async (req, res) => {
 
 export const updateCartItemQuantity = async (req, res) => {
   try {
-    // Extract product ID and new quantity from request body
+    
     const { productId, quantity } = req.body;
 
-    // Extract current user's ID from request object
     const userId = req.user.id;
 
     // Find the user's cart along with its associated cart items
@@ -144,7 +140,7 @@ export const updateCartItemQuantity = async (req, res) => {
       data: { quantity },
     });
 
-    // Return success message
+   
     return res
       .status(200)
       .json({ message: "Cart item quantity updated successfully" });
@@ -160,9 +156,11 @@ export const updateCartItemQuantity = async (req, res) => {
 
 export const removeCartItem = async (req, res) => {
   try {
-    // Extract product ID from request body
-    const { productId } = req.body;
+   
+  
+    const productId = parseInt(req.params.productid);
 
+    
     // Extract current user's ID from request object
     const userId = req.user.id;
 
