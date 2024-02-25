@@ -2,9 +2,10 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import userRouter from "./Routes/userRoutes.js";
+import metaRoutes from "./Routes/MetaRoute.js"
 import { errorHandler, notFound } from "./middleware/ErrorHandler.js";
-// import chatRoutes from "./Routes/chatRoutes.js";
-// import messageRoutes from "./Routes/messageRoutes.js";
+import ProductsRoutes from "./Routes/ProductRoutes.js"
+
 
 dotenv.config();
 
@@ -24,8 +25,12 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/user", userRouter);
-// app.use("/api/chat", chatRoutes);
-// app.use("/api/message", messageRoutes);
+app.use("/api/meta",metaRoutes);
+app.use("/api/products" , ProductsRoutes);
+
+
+
+
 app.use(notFound);
 app.use(errorHandler);
 
