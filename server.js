@@ -1,14 +1,12 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import connectDB from "./config/db.js";
 import userRouter from "./Routes/userRoutes.js";
 import { errorHandler, notFound } from "./middleware/ErrorHandler.js";
 // import chatRoutes from "./Routes/chatRoutes.js";
 // import messageRoutes from "./Routes/messageRoutes.js";
 
 dotenv.config();
-connectDB();
 
 const app = express();
 app.use(express.json());
