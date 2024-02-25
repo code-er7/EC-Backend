@@ -7,7 +7,7 @@ This project is a backend API for an e-commerce platform. It provides endpoints 
 To set up the project, follow these steps:
 
 1. Clone the repository: git clone https://github.com/code-er7/EC-Backend.git
-2. Initialize npm: npm init
+2. Initialize npm: npm install
 3. Run Prisma migrations to create the database schema:  npx prisma migrate dev --name created all schema
 4. Generate Prisma client:  npx prisma generate
 5. Start the server:  npm start
