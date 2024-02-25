@@ -11,8 +11,11 @@ To set up the project, follow these steps:
 3. Run Prisma migrations to create the database schema:  npx prisma migrate dev --name created all schema
 4. Generate Prisma client:  npx prisma generate
 5. Start the server:  npm start
+6. Make a .env : Place your DATABASE_URL="postgresql://username:password@localhost:5432/postgres" and 
+JWT_SECRET="PleaseplaceyourJwtSecreatHere"
 
-6. 
+
+7. Please find the swagger documentaion in the top file structure which will guide you threw  all the API's
 ## Schema Design
 
 ### Users Table
@@ -60,7 +63,7 @@ To set up the project, follow these steps:
 - `/cart`: View the current user's cart.
 - `/cart/add/:productid`: Add a product to the current user's cart.
 - `/cart/update`: Update the quantity of a product in the current user's cart.
-- `/cart/remove`: Remove a product from the current user's cart.
+- `/cart/remove/:productId`: Remove a product from the current user's cart.
 - `/order/place`: Place an order with products from the user's cart.
 - `/order/history`: Retrieve the order history for the current user.
 - `/order/{order_id}`: Retrieve detailed information about a specific order by its ID.
