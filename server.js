@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import userRouter from "./Routes/userRoutes.js";
 import metaRoutes from "./Routes/MetaRoute.js"
+import CartRoutes from "./Routes/CartRoutes.js"
 import { errorHandler, notFound } from "./middleware/ErrorHandler.js";
 import ProductsRoutes from "./Routes/ProductRoutes.js"
 
@@ -27,6 +28,7 @@ app.get("/", (req, res) => {
 app.use("/api/user", userRouter);
 app.use("/api/meta",metaRoutes);
 app.use("/api/products" , ProductsRoutes);
+app.use("/api/cart" , CartRoutes);
 
 
 
